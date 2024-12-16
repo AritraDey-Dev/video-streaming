@@ -3,6 +3,7 @@ import "./globals.css";
 import { DM_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/theme-provider"
 import { ClerkProvider } from "@clerk/nextjs";
+import ReactQueryProvider from "@/react-query";
 const manrope = DM_Sans({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,8 +26,10 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
-        >
+          >
+          <ReactQueryProvider>
           {children}
+          </ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>

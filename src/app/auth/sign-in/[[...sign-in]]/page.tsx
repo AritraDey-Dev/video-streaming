@@ -1,10 +1,7 @@
-import React from "react";
 import { SignIn } from "@clerk/nextjs";
 
-type Props = {}
+const SignInPage = () => (
+  <SignIn path="/auth/sign-in" routing="path" signUpUrl="/auth/sign-up" />
+);
 
-export default function Page(props: Props) {
-    return (
-        <SignIn />
-    )
-}
+export default SignInPage;
