@@ -2,7 +2,6 @@
 
 import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
-import { Varta } from "next/font/google";
 
 export const verifyAccessToWorkspace = async (workspaceId: string) => {
     try {

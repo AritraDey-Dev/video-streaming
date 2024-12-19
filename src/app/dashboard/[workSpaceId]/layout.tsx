@@ -1,9 +1,9 @@
-import { getNotifications, onAuthenticateUser } from "@/app/actions/user";
-import { getAllUserVideos, getWorkspaceFolders, getWorkspaces, verifyAccessToWorkspace } from "@/app/actions/workspace";
+import { getNotifications, onAuthenticateUser } from "@/actions/user";
+import { getAllUserVideos, getWorkspaceFolders, getWorkspaces, verifyAccessToWorkspace } from "@/actions/workspace";
 import { redirect } from "next/navigation";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import React from "react";
-// import Sidebar from "@/components/global/sidebar";
+import Sidebar from "@/components/global/sidebar";
 
 type Props = {
     params: {
@@ -52,7 +52,7 @@ export default async function Layout({ params: { workSpaceId }, children }: Prop
     return (
         <HydrationBoundary state={dehydrate(query)}>
             <div className="flex h-screen w-screen">
-                {/* <Sidebar actionWorkspace={workSpaceId} /> */}
+                <Sidebar actionWorkspaceId={workSpaceId} />
                 {children} {/* Ensure that the children are rendered */}
             </div>
         </HydrationBoundary>

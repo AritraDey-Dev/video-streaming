@@ -1,5 +1,5 @@
 import React from "react";
-import { onAuthenticateUser } from "../actions/user";
+import { onAuthenticateUser } from "../../actions/user";
 import { redirect } from 'next/navigation'
 type Props = {}
 
@@ -12,5 +12,6 @@ export default async function Dashboard(props: Props) {
         return redirect('/auth/sign-in')
         
     }
+ 
  
 }
