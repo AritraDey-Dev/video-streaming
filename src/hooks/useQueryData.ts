@@ -1,3 +1,4 @@
+"use client"
 import { Enabled, QueryFunction, QueryKey, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useQueryData = (queryKey:QueryKey,

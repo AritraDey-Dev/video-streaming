@@ -149,3 +149,70 @@ export const getWorkspaces=async()=>{
     }
   }
 }
+
+
+export const createWorkspaces=async(name:string)=>{
+  try{
+    const user=await currentUser();
+    if(!user) return {status:404,data:null}
+    const authorized=await db.user.findUnique({
+      where:{
+        clerkid:user.id,
+      },
+      select:{
+        subscription:{
+          select:{
+            plan:true,
+          }
+        },
+      }
+
+    })
+
+    if (authorized?.subscription?.plan === 'PRO') {
+      const workspace = await db.user.update({
+        where: {
+          clerkid: user.id,
+        },
+        data: {
+          workspace: {
+            create: {
+              name,
+              type: 'PUBLIC',
+            },
+          },
+        },
+      })
+      if (workspace) {
+        return { status: 201, data: 'Workspace Created' }
+      }
+    }
+    return {
+      status: 401,
+      data: 'You are not authorized to create a workspace.',
+    }
+  }catch(e){
+    console.log(e)
+  }
+       
+  }
+
+  export const renameFolders=async(folderId:string,name:string)=>{
+    try{
+      const folder=await db.folder.update({
+        where:{
+          id:folderId,
+        },
+        data:{
+          name,
+        }
+      })
+      if(folder) return {status:200,data:folder}
+      return {status:404,data:null}
+    }catch(e){
+        return {
+          status: 400,
+          data: null,
+        }
+    }
+  }

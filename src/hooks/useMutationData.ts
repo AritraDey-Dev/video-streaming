@@ -5,7 +5,7 @@ export const useMutationData = (
     mutationKey: MutationKey,
     mutationFn: MutationFunction<any, any>,
     enabled?: boolean,
-    queryKey?: string,
+    queryKey?:  string | readonly unknown[],
     onSuccess?: (data: any) => void)=>{
         const client=useQueryClient();
         const {mutate,isPending}=useMutation({mutationKey,mutationFn,
