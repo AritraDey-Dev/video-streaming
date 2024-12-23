@@ -216,3 +216,56 @@ export const createWorkspaces=async(name:string)=>{
         }
     }
   }
+
+  export const createFolder=async(workSpaceId:string)=>{
+    try{
+      const folder=await db.workSpace.update({
+        where:{
+          id:workSpaceId,
+        },
+        data:{
+          folders:{
+            create:{
+              name:'Untitled',
+              createdAt:new Date().toISOString(),
+            }
+          }
+      }
+
+    })
+    if(folder) return {status:200,message:"New folder created"}
+    return {status:404,message:"Could not create folder"}
+    }catch(e){
+        return {
+          status: 400,
+          data: null,
+        }
+    }
+  }
+
+
+
+  export const getFolderInfo=async(folderId:string)=>{
+    try{
+      const folder=await db.folder.findUnique({
+        where:{
+          id:folderId,
+        },
+        select:{
+          name:true,
+          _count:{
+            select:{
+              videos:true,
+            }
+          }
+        }
+      })
+      if(folder) return {status:200,data:folder}
+      return {status:404,data:null}
+    }catch(e){
+        return {
+          status: 400,
+          data: null,
+        }
+    }   
+  }
