@@ -269,3 +269,24 @@ export const createWorkspaces=async(name:string)=>{
         }
     }   
   }
+
+  export const moveVideoLocation=async(videoId:string,
+    workspaceId:string,
+  folderId:string)=>{
+
+    try{
+        const location=await db.video.update({
+            where:{
+                id:videoId,
+            },
+            data:{
+                folderId:folderId || null,
+                workSpaceId:workspaceId,
+            }
+        })
+        if(location) return {status:200,message:"Video location updated"}
+        return {status:404,message:"Could not update video location"}
+    }catch(e){
+      return {status:404,message:"error"}
+    }
+  }
