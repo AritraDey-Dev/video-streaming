@@ -7,6 +7,8 @@ import { useQueryData } from "@/hooks/useQueryData";
 import { getWorkspaceFolders } from "@/actions/workspace";
 import { useMutationDataState } from "@/hooks/useMutationData";
 import { cn } from "@/lib/utils";
+import { useDispatch } from "react-redux";
+import { FOLDERS } from "@/redux/slices/folder";
 
 type Props = {
     workspaceId: string;
@@ -32,7 +34,13 @@ const Folders = ({ workspaceId }: Props) => {
     const { latestVariables } = useMutationDataState(['create-folder'])
     const { status, data: folders } = (data || {}) as FoldersProps;
 
-    // if(isFetched)
+    const dispatch = useDispatch();
+    if(isFetched && folders){
+        dispatch(
+FOLDERS({
+    folders:folders
+})
+        )
     return <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -73,6 +81,7 @@ const Folders = ({ workspaceId }: Props) => {
             </>}
         </section>
     </div>
+}
 }
 
 export default Folders;
