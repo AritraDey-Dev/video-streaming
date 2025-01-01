@@ -11,7 +11,7 @@ export const useMutationData = (
         const {mutate,isPending}=useMutation({mutationKey,mutationFn,
             onSuccess(data){
                 if(onSuccess) onSuccess(data);
-                return toast(data?.status===200?'Suceess':'Error',{
+                return toast(data?.status===200|| data?.status===201?'Suceess':'Error',{
                     description:data?.data,
                 })
             },

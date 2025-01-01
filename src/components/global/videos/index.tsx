@@ -40,6 +40,7 @@ const Videos=({folderId,videosKey,workspaceId}:Props)=>{
         {VideoStatus === 200 ? (
           videos.map((video) => (
             <VideoCard
+            //@ts-ignore
               key={video.id}
               workspaceId={workspaceId}
               {...video}
