@@ -40,29 +40,28 @@ export const verifyAccessToWorkspace = async (workspaceId: string) => {
       }
     }
   }
-export const getWorkspaceFolders=async(workSpace:string)=>{
-  try{
-    const folders=await db.folder.findMany({
-      where:{
-        workSpaceId:workSpace,
-      },
-      include:{
-        _count:{
-          select:{
-            videos:true,
-          }
-        }
+  export const getWorkspaceFolders = async (workSpaceId: string) => {
+    try {
+      const isFolders = await db.folder.findMany({
+        where: {
+          workSpaceId,
+        },
+        include: {
+          _count: {
+            select: {
+              videos: true,
+            },
+          },
+        },
+      })
+      if (isFolders && isFolders.length > 0) {
+        return { status: 200, data: isFolders }
       }
-    })
-    if(folders && folders.length>0) return {status:200,data:folders}
-    return {status:404,data:null}
-  }catch(error){
-    return {
-      status:500,
-      data:null,
+      return { status: 404, data: [] }
+    } catch (error) {
+      return { status: 403, data: [] }
     }
   }
-}
 export const getAllUserVideos = async (workSpaceId: string) => {
   try {
     const user = await currentUser()

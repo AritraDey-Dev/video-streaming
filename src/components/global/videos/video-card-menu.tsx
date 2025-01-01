@@ -16,10 +16,10 @@ const VideoCardMenu = ({ videoId,
   currentFolder,
   currentFolderName }
   : Props) => {
-    console.log("currentFolderName",currentFolderName)
-    console.log("currentFolder",currentFolder)
-    console.log("currentWorkspace",currentWorkspace)
-    console.log("videoId",videoId)
+    // console.log("currentFolderName",currentFolderName)
+    // console.log("currentFolder",currentFolder)
+    // console.log("currentWorkspace",currentWorkspace)
+    // console.log("videoId",videoId)
   return (
     <Modal
       className="flex items-center cursor-pointer gap-x-2"

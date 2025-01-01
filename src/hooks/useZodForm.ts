@@ -1,4 +1,3 @@
-"use client";
 import { ZodSchema } from "zod";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -19,7 +18,13 @@ const  useZodForm=(
     resolver: zodResolver(schema),
     defaultValues:{...defaultValues},
  })
-  const onFormSubmit=handleSubmit(async(values)=>mutation(...values))
+ const onFormSubmit = handleSubmit(async (values) => {
+   try {
+     await mutation(values); 
+   } catch (error) {
+     console.error("Form submission error:", error); // Add error handling
+   }
+ });
     return {
         register,
         watch,

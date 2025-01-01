@@ -8,25 +8,29 @@ import { useMoveVideos } from '@/hooks/useFolder';
 import React from "react";
 
 type Props = {
-    videoId: string;
-    currentWorkspace: string;
-    currentFolder?: string;
-    currentFolderName?: string;
+  videoId: string;
+  currentWorkspace: string;
+  currentFolder?: string;
+  currentFolderName?: string;
 };
 
 const ChangeVideoLocation = ({ videoId, currentWorkspace, currentFolder, currentFolderName }: Props) => {
-    const { onFormSubmit,
-        errors,
-        register,
-        isPending,
-        folders,
-        fetching,
-        workspaces,
-        isFolders, } = useMoveVideos(videoId, currentWorkspace);
-        const folder=folders.find((folder)=>folder.id===currentFolder)
-        const workspace=workspaces.find((workspace)=>workspace.id===currentWorkspace)
-        console.log(isFolders)
-        return   (<form className="flex flex-col gap-y-5">
+  const {
+    register,
+    isPending,
+    onFormSubmit,
+    folders,
+    workspaces,
+    isFetching,
+    isFolders,
+  } = useMoveVideos(videoId, currentWorkspace!)
+  const folder = folders.find((folder) => folder.id === currentFolder)
+  const workspace = workspaces.find((workspace) => workspace.id === currentWorkspace)
+  // console.log("hi there")
+  // console.log("hit there", folders)
+  // console.log("folders", isFolders)
+  return (<form className="flex flex-col gap-y-5"
+    onSubmit={onFormSubmit}>
     {/* Current Workspace & Folder */}
     <div className="rounded-xl border-[1px] border-[#333] p-5 bg-transparent">
       <h2 className="text-xs text-[#a4a4a4]">Current Workspace</h2>
@@ -64,40 +68,48 @@ const ChangeVideoLocation = ({ videoId, currentWorkspace, currentFolder, current
         </select>
       </Label>
 
-      {/* Folder Selector */}
-      {fetching ? (
-        <Skeleton className="w-full h-10 rounded-lg bg-[#444]" />
+      {isFetching ? (
+        <Skeleton className="w-full h-[40px] rounded-xl" />
       ) : (
-<Label className="flex flex-col gap-y-1">
-  <span className="text-xs text-[#a4a4a4]">Folders in this workspace</span>
-  
-
-  {isFolders && isFolders.length > 0 ? (
-    <select
-      {...register('folder_id')}
-      className="rounded-lg border border-[#444] p-2 text-sm text-gray-200 bg-transparent focus:outline-none focus:ring-2 focus:ring-[#555]"
-    >
-      {folders.map((folder, key) => {
-        console.log('Rendering folder:', folder); // Debugging folder structure
-        return (
-          <option key={folder.id} value={folder.id} className="text-[#a4a4a4]">
-            {folder.name}
-          </option>
-        );
-      })}
-    </select>
-  ) : (
-    <p className="text-sm text-[#a4a4a4]">No folders in this workspace</p>
-  )}
-</Label>
+        <Label className="flex flex-col gap-y-2">
+          <p className="text-xs">Folders in this workspace</p>
+          {isFolders && isFolders.length > 0 ? (
+            <select
+              {...register('folder_id')}
+              className="rounded-xl bg-transparent text-base border-[#444]"
+            >
+              {isFolders.map((folder, key) =>
+                key === 0 ? (
+                  <option
+                    className="text-[#a4a4a4]"
+                    key={folder.id}
+                    value={folder.id}
+                  >
+                    {folder.name}
+                  </option>
+                ) : (
+                  <option
+                    className="text-[#a4a4a4]"
+                    key={folder.id}
+                    value={folder.id}
+                  >
+                    {folder.name}
+                  </option>
+                )
+              )}
+            </select>
+          ) : (
+            <p className="text-sm text-[#a4a4a4]">No folders in this workspace</p>
+          )}
+        </Label>
 
       )}
     </div>
     <Button >
-        <Loader state={isPending} color="#000">Move</Loader>
+      <Loader state={isPending} color="#000">Move</Loader>
     </Button>
   </form>
-);
+  );
 
 }
 
