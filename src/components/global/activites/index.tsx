@@ -11,9 +11,9 @@ const Activities = ({ author, videoId }: Props) => {
             <h1>Activities</h1>
             <p>Author: {author}</p>
             <p>Video ID: {videoId}</p>
-        </div>\
+        </div>
 
-        
+
     );
 };  
 
