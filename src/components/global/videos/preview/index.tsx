@@ -10,6 +10,7 @@ import { truncateString } from "@/lib/utils";
 import { Download } from "lucide-react";
 import TabMenu from "../../tabs";
 import AiTools from "../../ai-tools";
+import VideoTranscript from "../../video-transcript";
 
 type Props = {
     videoId: string;
@@ -30,12 +31,18 @@ const VideoPereview = (
         <div className="grid
          grid-cols-1
           xl:grid-cols-3 
-          lg:py-10 
+          lg:py-10 p-10
           overflow-y-auto 
           gap-5">
-            <div className="flex flex-col lg:col-span-2 gap-y-10">
+            <div className="flex 
+            flex-col
+             lg:col-span-2 
+             gap-y-10">
                 <div>
-                    <div className="flex gap-x-5 items-start justify-between">
+                    <div className="flex 
+                    gap-x-5
+                     items-start 
+                     justify-between">
                         <h2 className="text-white m-2 text-4xl font-bold">{video?.title}</h2>
                         {/* {author ? (
               <EditVideo
@@ -108,7 +115,7 @@ const VideoPereview = (
               trial={video.User?.trial!}
               plan={video.User?.subscription?.plan!}
             />
-            {/* <VideoTranscript transcript={video.summery!} /> */}
+            <VideoTranscript transcript={video.description!} />
             {/* <Activities
               author={video.User?.firstname as string}
               videoId={videoId}

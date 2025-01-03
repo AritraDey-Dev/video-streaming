@@ -23,7 +23,7 @@ const AiTools = ({ plan, trial, videoId }: Props) => {
   //Are they on a free plan?
   //have they already tried the AI feature?
   //if not? Try button
-  
+
   // useMutationData
   //serveraction titles and description
 
@@ -108,7 +108,7 @@ const AiTools = ({ plan, trial, videoId }: Props) => {
               <h3 className="text-md">AI Agent</h3>
               <p className="text-muted-foreground text-sm">
                 Viewers can ask questions on your video and our ai agent will
-                respond.
+                   respond.
               </p>
             </div>
           </div>

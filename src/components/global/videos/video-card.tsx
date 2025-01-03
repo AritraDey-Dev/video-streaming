@@ -52,7 +52,7 @@ const VideoCard = (Props: Props) => {
           />
         </div>
         <Link
-          href={`/preview/${Props.id}`}
+          href={`/dashboard/${Props.workspaceId}/video/${Props.id}`}
           className="hover:bg-[#252525] transition duration-150 flex flex-col justify-between h-full"
         >
           {/* Video Section */}
