@@ -1,3 +1,5 @@
+import CommentForm from "@/components/form/comment-form";
+import { TabsContent } from "@radix-ui/react-tabs";
 import React from "react";
 
 type Props = {
@@ -7,11 +9,11 @@ type Props = {
 
 const Activities = ({ author, videoId }: Props) => {
     return (
-        <div>
-            <h1>Activities</h1>
-            <p>Author: {author}</p>
-            <p>Video ID: {videoId}</p>
-        </div>
+ <TabsContent
+ value="Activitiy"
+ className="p-5 bg-[#1D1D1D] rounded-xl flex flex-col gap-y-6">
+<CommentForm author={author} videoId={videoId} />
+</TabsContent>
 
 
     );
