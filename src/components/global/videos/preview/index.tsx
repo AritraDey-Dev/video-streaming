@@ -14,38 +14,38 @@ import VideoTranscript from "../../video-transcript";
 import Activities from "../../activites";
 
 type Props = {
-    videoId: string;
+  videoId: string;
 }
 
 const VideoPereview = (
-    { videoId }: Props) => {
-    const { data } = useQueryData(['preview-video'], () =>
-        getPreviewVideo(videoId))
-    const router = useRouter();
-    const { data: video, status, author } = data as VideoProps;
-    if (status !== 200) router.push('/')
-    const daysAgo = Math.floor(
-        (new Date().getTime() - new Date(video?.createdAt).getTime()) /
-        (1000 * 60 * 60 * 24)
-    );
-    return (
-        <div className="grid
+  { videoId }: Props) => {
+  const { data } = useQueryData(['preview-video'], () =>
+    getPreviewVideo(videoId))
+  const router = useRouter();
+  const { data: video, status, author } = data as VideoProps;
+  if (status !== 200) router.push('/')
+  const daysAgo = Math.floor(
+    (new Date().getTime() - new Date(video?.createdAt).getTime()) /
+    (1000 * 60 * 60 * 24)
+  );
+  return (
+    <div className="grid
          grid-cols-1
           xl:grid-cols-3 
           lg:py-10 p-10
           overflow-y-auto 
           gap-5">
-            <div className="flex 
+      <div className="flex 
             flex-col
              lg:col-span-2 
              gap-y-10">
-                <div>
-                    <div className="flex 
+        <div>
+          <div className="flex 
                     gap-x-5
                      items-start 
                      justify-between">
-                        <h2 className="text-white m-2 text-4xl font-bold">{video?.title}</h2>
-                        {/* {author ? (
+            <h2 className="text-white m-2 text-4xl font-bold">{video?.title}</h2>
+            {/* {author ? (
               <EditVideo
                 videoId={videoId}
                 title={video.title as string}
@@ -54,17 +54,17 @@ const VideoPereview = (
             ) : (
               <></>
             )} */}
-                    </div>
-                    <span className="flex gap-x-3 mt-2">
-                        <p className="text-[#9D9D9D] capitalize">
-                            {video.User?.firstname} {video.User?.lastname}
-                        </p>
-                        <p className="text-[#707070]">
-                            {daysAgo === 0 ? 'Today' : `${daysAgo}d ago`}
-                        </p>
-                    </span>
-                </div>
-                <video
+          </div>
+          <span className="flex gap-x-3 mt-2">
+            <p className="text-[#9D9D9D] capitalize">
+              {video.User?.firstname} {video.User?.lastname}
+            </p>
+            <p className="text-[#707070]">
+              {daysAgo === 0 ? 'Today' : `${daysAgo}d ago`}
+            </p>
+          </span>
+        </div>
+        <video
           preload="metadata"
           className="w-full aspect-video opacity-50 rounded-xl"
           controls
@@ -74,9 +74,9 @@ const VideoPereview = (
           />
         </video>
         <div className="flex flex-col text-2xl gap-y-4">
-        <div className="flex gap-x-5 items-center justify-between">
-        <p className="text-[#BDBDBD] text-semibold">Description</p>
-        {/* {author ? (
+          <div className="flex gap-x-5 items-center justify-between">
+            <p className="text-[#BDBDBD] text-semibold">Description</p>
+            {/* {author ? (
               <EditVideo
                 videoId={videoId}
                 title={video.title as string}
@@ -85,28 +85,28 @@ const VideoPereview = (
             ) : (
               <></>
             )} */}
-            </div>
-            <p className="text-[#9D9D9D] text-lg text-medium">
+          </div>
+          <p className="text-[#9D9D9D] text-lg text-medium">
             {video.description}
           </p>
-            </div>
-            </div>
-            <div className="lg:col-span-1 flex flex-col gap-y-16">
-            <div className="flex justify-end gap-x-3 items-center">
-            <CopyLink
+        </div>
+      </div>
+      <div className="lg:col-span-1 flex flex-col gap-y-16">
+        <div className="flex justify-end gap-x-3 items-center">
+          <CopyLink
             variant="outline"
             className="rounded-full bg-transparent px-10"
             videoId={videoId}
           />
-                    <RichLink
+          <RichLink
             description={truncateString(video.description as string, 150)}
             id={videoId}
             source={video.source}
             title={video.title as string}
           />
-          <Download/>
-                </div>
-                <div>
+          <Download />
+        </div>
+        <div>
           <TabMenu
             defaultValue="Ai tools"
             triggers={['Ai tools', 'Transcript', 'Activity']}
@@ -121,11 +121,11 @@ const VideoPereview = (
               author={video.User?.firstname as string}
               videoId={videoId}
             />
-            
+
           </TabMenu>
         </div>
-                </div>
-        </div>
-    )
+      </div>
+    </div>
+  )
 }
 export default VideoPereview;

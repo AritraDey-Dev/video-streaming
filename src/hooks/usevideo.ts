@@ -5,7 +5,7 @@ import useZodForm from "./useZodForm"
 import { createCommentschema } from "@/components/form/comment-form/schema"
 
 export const useVideo = (videoId:string,commentId?:string) => {
-const {data}=useQueryData(['user-profile'],()=>getUserProfile())
+const {data}=useQueryData(['user-profile'],getUserProfile)
 
 const {status,data:user}=data as{
     status:number,

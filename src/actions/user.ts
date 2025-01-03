@@ -283,3 +283,27 @@ export const getUserProfile = async () => {
     return { status: 400 }
   }
 }
+
+
+export const getVideoComments = async (Id: string) => {
+  try {
+    const comments = await db.comment.findMany({
+      where: {
+        OR: [{ videoId: Id }, { commentId: Id }],
+        commentId: null,
+      },
+      include: {
+        reply: {
+          include: {
+            User: true,
+          },
+        },
+        User: true,
+      },
+    })
+
+    return { status: 200, data: comments }
+  } catch (error) {
+    return { status: 400 }
+  }
+}
