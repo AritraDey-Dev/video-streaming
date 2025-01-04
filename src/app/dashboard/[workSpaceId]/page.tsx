@@ -6,8 +6,9 @@ import React from "react";
 import CreateFolders from "@/components/global/create-folders";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import Folders from "@/components/global/folders";
-import { getAllUserVideos, getWorkspaceFolders } from "@/actions/workspace";
+import { getAllUserVideos, getWorkspaceFolders, getWorkspaces } from "@/actions/workspace";
 import Videos from "@/components/global/videos";
+import { getNotifications } from "@/actions/user";
 type Props = {
     params:{
         workSpaceId:string;
@@ -26,6 +27,14 @@ const DashboardPage = async ({params:{workSpaceId}}: Props) => {
     queryKey: ['user-videos'],
     queryFn: () => getAllUserVideos(workSpaceId),
   })
+      await query.prefetchQuery({
+          queryKey: ['workSpaces'],
+          queryFn: () => getWorkspaces(),
+      });
+      await query.prefetchQuery({
+          queryKey: ['notifications'], // Corrected queryKey to be unique
+          queryFn: () => getNotifications(),
+      });
  
     return    <HydrationBoundary state={dehydrate(query)}>
     <div>

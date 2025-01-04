@@ -20,7 +20,7 @@ const Activities = ({ author, videoId }: Props) => {
     return (
         <TabsContent
             value="Activity"
-            className="p-5 bg-[#1D1D1D] rounded-xl flex flex-col gap-y-6">
+            className="p-5  rounded-xl flex flex-col gap-y-6">
             <CommentForm author={author} videoId={videoId} />
             {comments?.map((comment) => (
                 <CommentCard

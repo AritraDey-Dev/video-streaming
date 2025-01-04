@@ -5,7 +5,7 @@ import { useSearch } from "@/hooks/useSearch";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import {  User } from "lucide-react";
 import React from "react";
-import { Button } from "react-day-picker";
+import { Button } from "@/components/ui/button";
 import Loader from "../loader";
 
 type Props = {
@@ -17,11 +17,11 @@ const Search = ({workspaceId}: Props) => {
     'get-users',
     'USERS'
   )
-  const { mutate, isPending } = useMutationData(
-    ['invite-member'],
-    (data: { recieverId: string; email: string }) =>
-      inviteMembers(workspaceId, data.recieverId, data.email)
-  )
+  // const { mutate, isPending } = useMutationData(
+  //   ['invite-member'],
+  //   (data: { recieverId: string; email: string }) =>
+  //     inviteMembers(workspaceId, data.recieverId, data.email)
+  // )
   return (
     <div className="flex flex-col gap-y">
       <Input onChange={onSearchQuery} 
@@ -55,7 +55,7 @@ const Search = ({workspaceId}: Props) => {
                 </p>
               </div>
               <div className="flex-1 flex justify-end items-center">
-              <Button
+              {/* <Button
                   onClick={() =>
                     mutate({ recieverId: user.id, email: user.email })
                   }
@@ -69,7 +69,7 @@ const Search = ({workspaceId}: Props) => {
                   >
                     Invite
                   </Loader>
-                </Button>
+                </Button> */}
             </div>
             </div>
           ))}

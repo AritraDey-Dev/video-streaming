@@ -2,7 +2,8 @@
 import { db } from '@/lib/db';
 import { currentUser } from '@clerk/nextjs/server'
 import { SubscriptIcon } from 'lucide-react';
-
+import Stripe from 'stripe';
+const stripe = new Stripe(process.env.STRIPE_CLIENT_SECRET as string);
 export const onAuthenticateUser = async () => {
     try {
       const user = await currentUser()
@@ -303,6 +304,38 @@ export const getVideoComments = async (Id: string) => {
     })
 
     return { status: 200, data: comments }
+  } catch (error) {
+    return { status: 400 }
+  }
+}
+
+export const completeSubscription = async (session_id: string) => {
+  try {
+    const user = await currentUser()
+    if (!user) return { status: 404 }
+
+    const session = await stripe.checkout.sessions.retrieve(session_id)
+    if (session) {
+      const customer = await db.user.update({
+        where: {
+          clerkid: user.id,
+        },
+        data: {
+          subscription: {
+            update: {
+              data: {
+                customerId: session.customer as string,
+                plan: 'PRO',
+              },
+            },
+          },
+        },
+      })
+      if (customer) {
+        return { status: 200 }
+      }
+    }
+    return { status: 404 }
   } catch (error) {
     return { status: 400 }
   }

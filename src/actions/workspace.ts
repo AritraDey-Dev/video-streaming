@@ -104,51 +104,49 @@ export const getAllUserVideos = async (workSpaceId: string) => {
     return { status: 400 }
   }
 }
-export const getWorkspaces=async()=>{
-  try{
-    const user=await currentUser();
-    if(!user) return {status:404,data:null}
-    const workspaces=await db.user.findUnique({
-      where:{
-        clerkid:user.id,
-      },
-      select:{
-        subscription:{
-          select:{
-            plan:true,
-          }
-        },
-        workspace:{
-          select:{
-            id:true,
-            name:true,
-            type:true,
-          }
-        },
-        members:{
-          select:{
-            WorkSpace:{
-              select:{
-                id:true,
-                name:true,
-                type:true,
-              }
-            }
-          }
-        }
+export const getWorkspaces = async () => {
+  try {
+    const user = await currentUser()
 
-      }
+    if (!user) return { status: 404 }
+
+    const workspaces = await db.user.findUnique({
+      where: {
+        clerkid: user.id,
+      },
+      select: {
+        subscription: {
+          select: {
+            plan: true,
+          },
+        },
+        workspace: {
+          select: {
+            id: true,
+            name: true,
+            type: true,
+          },
+        },
+        members: {
+          select: {
+            WorkSpace: {
+              select: {
+                id: true,
+                name: true,
+                type: true,
+              },
+            },
+          },
+        },
+      },
     })
-    if(workspaces) return {status:200,data:workspaces}
-  }
-  catch(error){
-    return {
-      status:500,
-      data:null,
+    if (workspaces) {
+      return { status: 200, data: workspaces }
     }
+  } catch (error) {
+    return { status: 400 }
   }
 }
-
 
 export const createWorkspaces=async(name:string)=>{
   try{

@@ -1,22 +1,22 @@
-
-export type workspaceProps={
-    data:{
-        subscription:string,
-        plan:'FREE' | 'PRO',
-        workspace:{
-            id:string,
-            name:string,
-            type:'PUBLIC' | 'PERSONAL'
-        }[]
-        members:{
-            workSpace:{
-                id:string,
-                name:string,
-                type:'PUBLIC' | 'PERSONAL'
-            }
-        }[]
+export type WorkspaceProps = {
+    data: {
+      subscription: {
+        plan: 'FREE' | 'PRO'
+      } | null
+      workspace: {
+        id: string
+        name: string
+        type: 'PUBLIC' | 'PERSONAL'
+      }[]
+      members: {
+        WorkSpace: {
+          id: string
+          name: string
+          type: 'PUBLIC' | 'PERSONAL'
+        }
+      }[]
     }
-}
+  }
 
 export type NotificaiionProps={
     status:string,
